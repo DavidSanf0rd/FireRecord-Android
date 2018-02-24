@@ -5,6 +5,8 @@ import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import com.sanf0rd.firerecord.FireRecord
+import com.sanf0rd.firerecord.FireRecordCompanion
 
 import kotlinx.android.synthetic.main.activity_main.*
 
