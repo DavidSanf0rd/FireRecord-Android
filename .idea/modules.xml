@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FireRecordAndroid.iml" filepath="$PROJECT_DIR$/FireRecordAndroid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firerecord/firerecord-android.iml" filepath="$PROJECT_DIR$/firerecord/firerecord-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firerecord-sample/app.iml" filepath="$PROJECT_DIR$/firerecord-sample/app.iml" />
+    </modules>
+  </component>
+</project>
