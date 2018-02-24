@@ -1,4 +1,4 @@
-package com.sanf0rd.firerecord_sample;
+package com.sanf0rd.firerecord;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

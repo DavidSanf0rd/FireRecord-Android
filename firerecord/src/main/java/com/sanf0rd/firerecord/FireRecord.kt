@@ -1,11 +1,14 @@
-package com.sanf0rd.firerecord_sample
+package com.sanf0rd.firerecord
 
-import android.util.Log
+import com.google.firebase.firestore.FirebaseFirestore
+
 
 /**
  * Created by sanf0rd on 24/02/18.
  */
+
 open class FireRecord {
+
     fun save() {
         print("your model has been saved")
     }
