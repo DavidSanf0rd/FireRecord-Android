@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/FireRecordAndroid.iml" filepath="$PROJECT_DIR$/FireRecordAndroid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/firerecord/firerecord-android.iml" filepath="$PROJECT_DIR$/firerecord/firerecord-android.iml" />
-      <module fileurl="file://$PROJECT_DIR$/firerecord-sample/app.iml" filepath="$PROJECT_DIR$/firerecord-sample/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firerecord/firerecord.iml" filepath="$PROJECT_DIR$/firerecord/firerecord.iml" />
+      <module fileurl="file://$PROJECT_DIR$/firerecord-sample/firerecord-sample.iml" filepath="$PROJECT_DIR$/firerecord-sample/firerecord-sample.iml" />
     </modules>
   </component>
 </project>
