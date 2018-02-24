@@ -17,6 +17,11 @@ class MainActivity : AppCompatActivity() {
 
         User.all()
 
+        val user = User()
+        user.name = "Sanford"
+        user.age = 24
+        user.save()
+
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
@@ -40,6 +45,9 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class User {
+class User: FireRecord() {
     companion object: FireRecordCompanion()
+
+    var name: String? = null
+    var age: Int? = null
 }

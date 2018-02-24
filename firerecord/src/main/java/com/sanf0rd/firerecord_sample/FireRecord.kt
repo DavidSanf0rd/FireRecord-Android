@@ -6,10 +6,8 @@ import android.util.Log
  * Created by sanf0rd on 24/02/18.
  */
 open class FireRecord {
-    companion object {
-        fun printMyName() {
-            print("trying")
-        }
+    fun save() {
+        print("your model has been saved")
     }
 }
 
