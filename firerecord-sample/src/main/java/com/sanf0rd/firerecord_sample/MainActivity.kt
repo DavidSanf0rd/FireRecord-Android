@@ -3,13 +3,16 @@ package com.sanf0rd.firerecord_sample
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import com.google.firebase.firestore.ServerTimestamp
 import com.sanf0rd.firerecord.FireRecord
 import com.sanf0rd.firerecord.FireRecordCompanion
 import com.sanf0rd.firerecord.all
 
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,9 +26,13 @@ class MainActivity : AppCompatActivity() {
         }
 
         val user = User()
-        user.name = "Sanford"
+        user.name = "Magic"
         user.age = 24
-        user.save()
+        user.birthDate = Date()
+
+        user.save {
+            Log.d("result", "user has been saved")
+        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -55,4 +62,6 @@ class User: FireRecord() {
 
     var name: String? = null
     var age: Int? = null
+    var birthDate: Date? = null
+    @ServerTimestamp var createdAt: Date? = null
 }
