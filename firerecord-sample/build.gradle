@@ -33,3 +33,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
     implementation project(':firerecord')
 }
+
+apply plugin: 'com.google.gms.google-services'

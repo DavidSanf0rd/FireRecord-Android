@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "821669051022",
+    "firebase_url": "https://firerecordtest.firebaseio.com",
+    "project_id": "firerecordtest",
+    "storage_bucket": "firerecordtest.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:821669051022:android:4daa498d13aee280",
+        "android_client_info": {
+          "package_name": "com.sanf0rd.firerecord_android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "821669051022-7gmj1q8qlcanmkun4dglhjo1a12od20i.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "821669051022-1ts9cg51lb35u9r827rqv4keh5m4dn7b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlh-BCplvcr--seqbhSOswn1vCQ639hhE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
