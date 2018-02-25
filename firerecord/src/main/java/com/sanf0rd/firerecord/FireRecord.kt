@@ -25,17 +25,17 @@ open class FireRecord {
     }
 }
 
-open class FireRecordCompanion
+open class FireRecordCompanion<T: FireRecord> { }
 
-fun <T: FireRecordCompanion> T.all(result: (List<T>) -> Unit) {
+fun <U: FireRecord, T: FireRecordCompanion<U>> T.all(result: (List<U>) -> Unit) {
+
     val callingClass = Class.forName(this.javaClass.name.removeSuffix("\$Companion"))
 
     firestore.collection("/users").get().addOnCompleteListener { task ->
         if (task.isSuccessful) {
-            result(task.result.toObjects(callingClass) as List<T>)
+            result(task.result.toObjects(callingClass) as List<U>)
         } else {
             Log.d("teste", "Error getting documents")
         }
-
     }
 }

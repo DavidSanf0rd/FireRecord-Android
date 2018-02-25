@@ -21,8 +21,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        User.all { result ->
-            print(result)
+        User.all { users ->
+            users.forEach { it ->
+                Log.d("User.name", "${it.name}")
+            }
         }
 
         val user = User()
@@ -58,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 }
 
 class User: FireRecord() {
-    companion object: FireRecordCompanion()
+    companion object: FireRecordCompanion<User>()
 
     var name: String? = null
     var age: Int? = null
