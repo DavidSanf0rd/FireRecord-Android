@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.sanf0rd.firerecord.FireRecord
 import com.sanf0rd.firerecord.FireRecordCompanion
+import com.sanf0rd.firerecord.all
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        User.all()
+        User.all { result ->
+            print(result)
+        }
 
         val user = User()
         user.name = "Sanford"

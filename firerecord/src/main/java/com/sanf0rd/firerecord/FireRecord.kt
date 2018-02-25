@@ -1,5 +1,6 @@
 package com.sanf0rd.firerecord
 
+import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -17,9 +18,19 @@ open class FireRecord {
     }
 }
 
-open class FireRecordCompanion {
+open class FireRecordCompanion
 
-    fun all() {
-        val callingClass = Class.forName(this.javaClass.name.removeSuffix("\$Companion")).kotlin
+fun <T: FireRecordCompanion> T.all(result: (List<T>) -> Unit) {
+    val callingClass = Class.forName(this.javaClass.name.removeSuffix("\$Companion"))
+
+    firestore.collection("/users").get().addOnCompleteListener { task ->
+        if (task.isSuccessful) {
+            result(task.result.toObjects(callingClass) as List<T>)
+        } else {
+            Log.d("teste", "Error getting documents")
+        }
+
     }
+
+
 }
