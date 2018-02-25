@@ -13,7 +13,14 @@ val firestore: FirebaseFirestore
 
 open class FireRecord {
 
-    fun save() {
+    fun save(result: () -> Unit) {
+        firestore.collection("/users").add(this).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result()
+            }else {
+                //Todo: Return an Error
+            }
+        }
         print("your model has been saved")
     }
 }
@@ -31,6 +38,4 @@ fun <T: FireRecordCompanion> T.all(result: (List<T>) -> Unit) {
         }
 
     }
-
-
 }
