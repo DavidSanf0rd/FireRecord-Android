@@ -21,19 +21,16 @@ open class FireRecord {
                 //Todo: Return an Error
             }
         }
-        print("your model has been saved")
     }
 }
 
 open class FireRecordCompanion<T: FireRecord> { }
 
-fun <U: FireRecord, T: FireRecordCompanion<U>> T.all(result: (List<U>) -> Unit) {
-
-    val callingClass = Class.forName(this.javaClass.name.removeSuffix("\$Companion"))
+inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline result: (List<U>) -> Unit) {
 
     firestore.collection("/users").get().addOnCompleteListener { task ->
         if (task.isSuccessful) {
-            result(task.result.toObjects(callingClass) as List<U>)
+            result(task.result.toObjects(U::class.java) as List<U>)
         } else {
             Log.d("teste", "Error getting documents")
         }

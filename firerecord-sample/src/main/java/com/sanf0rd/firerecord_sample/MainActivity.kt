@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         User.all { users ->
-            users.forEach { it ->
-                Log.d("User.name", "${it.name}")
+            users.forEach { user ->
+                Log.d("User.name", "${user.name}")
             }
         }
 
