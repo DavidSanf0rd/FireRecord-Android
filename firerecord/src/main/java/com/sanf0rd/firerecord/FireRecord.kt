@@ -13,9 +13,12 @@ val firestore: FirebaseFirestore
 
 open class FireRecord {
 
+    var id: String? = null
+
     fun save(result: () -> Unit) {
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}").add(this).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                this.id = task.result.id
                 result()
             }else {
                 //Todo: Return an Error
