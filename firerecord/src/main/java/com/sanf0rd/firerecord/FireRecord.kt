@@ -33,7 +33,15 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline 
 
     firestore.collection("/${U::class.java.simpleName.toLowerCase()}").get().addOnCompleteListener { task ->
         if (task.isSuccessful) {
-            result(task.result.toObjects(U::class.java) as List<U>)
+            val documents = task.result.documents
+
+            val mappedList = documents.map {
+                val mappedObject = it.toObject(U::class.java)
+                mappedObject.id = it.id
+                return@map mappedObject
+            }
+
+            result(mappedList)
         } else {
             //Todo: Return an Error
         }
