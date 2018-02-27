@@ -10,6 +10,7 @@ import com.google.firebase.firestore.ServerTimestamp
 import com.sanf0rd.firerecord.FireRecord
 import com.sanf0rd.firerecord.FireRecordCompanion
 import com.sanf0rd.firerecord.all
+import com.sanf0rd.firerecord.load
 
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -21,18 +22,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        User.all { users ->
-            users.forEach { user ->
-                Log.d("User.name", "${user.name}")
-            }
+//        Employee.all { users ->
+//            users.forEach { user ->
+//                Log.d("User.name", "${user.id}")
+//            }
+//        }
+
+        Employee.load("9qWVZ4Ar1dKnikGs5aAY") { employee ->
+            Log.d("User.name", "${employee.name}")
         }
 
-        val user = User()
-        user.name = "Magic"
-        user.age = 24
-        user.birthDate = Date()
+        val employee = Employee()
+        employee.salary = 2700
+        employee.name = "Sanford"
 
-        user.save {
+//        val user = User()
+//        user.name = "Magic"
+//        user.age = 24
+//        user.birthDate = Date()
+
+        employee.save {
             Log.d("result", "user has been saved")
         }
 
@@ -59,11 +68,17 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-class User: FireRecord() {
+open class User: FireRecord() {
     companion object: FireRecordCompanion<User>()
 
     var name: String? = null
     var age: Int? = null
     var birthDate: Date? = null
     @ServerTimestamp var createdAt: Date? = null
+}
+
+class Employee: User() {
+    companion object: FireRecordCompanion<Employee>()
+
+    var salary: Int? = null
 }
