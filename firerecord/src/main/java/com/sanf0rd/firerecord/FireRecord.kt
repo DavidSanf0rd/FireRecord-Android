@@ -26,6 +26,19 @@ open class FireRecord {
             }
         }
     }
+
+    fun update(result: () -> Unit) {
+        val id = id ?: return Unit
+
+        firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
+                .document(id).set(this).addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result()
+            } else {
+                //Todo: Return an error
+            }
+        }
+    }
 }
 
 open class FireRecordCompanion<T: FireRecord> { }
