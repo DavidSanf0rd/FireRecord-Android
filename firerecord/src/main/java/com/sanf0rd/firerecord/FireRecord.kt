@@ -16,7 +16,8 @@ open class FireRecord {
     var id: String? = null
 
     fun save(result: () -> Unit) {
-        firestore.collection("/${this::class.java.simpleName.toLowerCase()}").add(this).addOnCompleteListener { task ->
+        firestore.collection("/${this::class.java.simpleName.toLowerCase()}").add(this)
+                .addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 this.id = task.result.id
                 result()
@@ -29,9 +30,23 @@ open class FireRecord {
 
 open class FireRecordCompanion<T: FireRecord> { }
 
+inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.load(id: String, crossinline result: (U) -> Unit) {
+    firestore.collection("/${U::class.java.simpleName.toLowerCase()}").document(id).get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val mappedObject = task.result.toObject(U::class.java)
+                    mappedObject.id = id
+                    result(mappedObject)
+                }else {
+                    //Todo: Return an Error
+                }
+            }
+}
+
 inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline result: (List<U>) -> Unit) {
 
-    firestore.collection("/${U::class.java.simpleName.toLowerCase()}").get().addOnCompleteListener { task ->
+    firestore.collection("/${U::class.java.simpleName.toLowerCase()}").get()
+            .addOnCompleteListener { task ->
         if (task.isSuccessful) {
             val documents = task.result.documents
 
