@@ -32,7 +32,7 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline 
         if (task.isSuccessful) {
             result(task.result.toObjects(U::class.java) as List<U>)
         } else {
-            Log.d("teste", "Error getting documents")
+            //Todo: Return an Error
         }
     }
 }
