@@ -14,7 +14,7 @@ val firestore: FirebaseFirestore
 open class FireRecord {
 
     fun save(result: () -> Unit) {
-        firestore.collection("/users").add(this).addOnCompleteListener { task ->
+        firestore.collection("/${this::class.java.simpleName.toLowerCase()}").add(this).addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 result()
             }else {
@@ -28,7 +28,7 @@ open class FireRecordCompanion<T: FireRecord> { }
 
 inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline result: (List<U>) -> Unit) {
 
-    firestore.collection("/users").get().addOnCompleteListener { task ->
+    firestore.collection("/${U::class.java.simpleName.toLowerCase()}").get().addOnCompleteListener { task ->
         if (task.isSuccessful) {
             result(task.result.toObjects(U::class.java) as List<U>)
         } else {
