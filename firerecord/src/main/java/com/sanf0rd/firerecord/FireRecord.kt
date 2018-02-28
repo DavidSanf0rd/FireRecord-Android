@@ -28,7 +28,7 @@ open class FireRecord {
     }
 
     fun update(result: () -> Unit) {
-        val id = id ?: return Unit
+        val id = id ?: return Unit //Todo: return an Error
 
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
                 .document(id).set(this).addOnCompleteListener { task ->
@@ -54,6 +54,7 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.load(id: String,
                     //Todo: Return an Error
                 }
             }
+
 }
 
 inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline result: (List<U>) -> Unit) {
