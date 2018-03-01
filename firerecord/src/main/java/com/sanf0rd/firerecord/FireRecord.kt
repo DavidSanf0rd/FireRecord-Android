@@ -39,6 +39,19 @@ open class FireRecord {
             }
         }
     }
+
+    fun destroy(result: () -> Unit) {
+        val id = id ?: return Unit //Todo: return an Error
+
+        firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
+                .document(id).delete().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                result()
+            } else {
+                //Todo: Return an error
+            }
+        }
+    }
 }
 
 open class FireRecordCompanion<T: FireRecord> { }
