@@ -30,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         Employee.load("9qWVZ4Ar1dKnikGs5aAY") { employee ->
             Log.d("User.name", "${employee.name}")
+            employee.name = "updated name"
+            employee.update {
+                Log.d("User.name", "${employee.name}")
+            }
         }
 
         val employee = Employee()
