@@ -71,7 +71,6 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.load(id: String,
 }
 
 inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline result: (List<U>) -> Unit) {
-
     firestore.collection("/${U::class.java.simpleName.toLowerCase()}").get()
             .addOnCompleteListener { task ->
         if (task.isSuccessful) {
@@ -88,4 +87,16 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline 
             //Todo: Return an Error
         }
     }
+}
+
+inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.destroy(id: String, crossinline result: () -> Unit) {
+    firestore.collection("/${U::class.java.simpleName.toLowerCase()}").document(id).delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    result()
+                } else {
+                    //Todo: Return an Error
+                }
+            }
+
 }
