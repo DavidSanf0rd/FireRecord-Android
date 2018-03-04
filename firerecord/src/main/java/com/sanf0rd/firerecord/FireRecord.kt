@@ -1,6 +1,5 @@
 package com.sanf0rd.firerecord
 
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 
 
@@ -98,5 +97,4 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.destroy(id: Stri
                     //Todo: Return an Error
                 }
             }
-
 }

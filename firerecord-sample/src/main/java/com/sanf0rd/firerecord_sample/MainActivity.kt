@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.firestore.ServerTimestamp
-import com.sanf0rd.firerecord.FireRecord
-import com.sanf0rd.firerecord.FireRecordCompanion
-import com.sanf0rd.firerecord.all
-import com.sanf0rd.firerecord.load
+import com.sanf0rd.firerecord.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -28,26 +25,26 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-        Employee.load("9qWVZ4Ar1dKnikGs5aAY") { employee ->
-            Log.d("User.name", "${employee.name}")
-            employee.name = "updated name"
-            employee.update {
-                Log.d("User.name", "${employee.name}")
-            }
+//        Employee.load("9qWVZ4Ar1dKnikGs5aAY") { employee ->
+//            Log.d("User.name", "${employee.name}")
+//            employee.name = "updated name"
+//            employee.update {
+//                Log.d("User.name", "${employee.name}")
+//            }
+//        }
+
+        Employee.destroy("9qWVZ4Ar1dKnikGs5aAY") {
+            Log.d("result", "deleted")
         }
 
-        val employee = Employee()
-        employee.salary = 2700
-        employee.name = "Sanford"
+//        val employee = Employee()
+//        employee.salary = 2700
+//        employee.name = "Sanford"
 
 //        val user = User()
 //        user.name = "Magic"
 //        user.age = 24
 //        user.birthDate = Date()
-
-        employee.save {
-            Log.d("result", "user has been saved")
-        }
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
