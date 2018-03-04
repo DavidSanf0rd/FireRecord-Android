@@ -1,19 +1,22 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
-    compileSdkVersion 26
-
-
+    compileSdkVersion 27
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
 
+    lintOptions {
+        abortOnError false
     }
 
     buildTypes {
@@ -25,16 +28,73 @@ android {
 
 }
 
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    implementation 'com.android.support:appcompat-v7:26.0.0-beta1'
+    implementation 'com.android.support:appcompat-v7:27.0.2'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:0.5'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compile 'com.google.firebase:firebase-firestore:11.8.0'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compileOnly 'com.google.firebase:firebase-firestore:11.8.0'
 }
+
 repositories {
     mavenCentral()
+}
+
+// for Bintray
+def projectVersionCodeNr = Integer.parseInt(projectVersionCode)
+def libGit = libGit
+def libUrl = libUrl
+def libDescription = libDescription
+def libGroupId = libGroupId
+def libArtifactId = libArtifactId
+
+// for Maven
+group = libGroupId
+version = projectVersionName
+
+install {
+    repositories.mavenInstaller {
+        pom.project {
+            name libArtifactId
+            description libDescription
+            url libUrl
+            inceptionYear '2018'
+
+            packaging 'aar'
+            groupId libGroupId
+            artifactId libArtifactId
+            version projectVersionName
+
+            licenses {
+                license {
+                    name 'MIT'
+                    url libLicenseUrl
+                }
+            }
+        }
+    }
+}
+
+bintray {
+    user = bintray_user
+    key = bintray_apikey
+    pkg {
+        repo = libGroupId
+        name = libArtifactId
+        licenses = ['MIT']
+        vcsUrl = libGit
+        version {
+            name = projectVersionName
+
+        }
+    }
+    configurations = ['archives']
 }
