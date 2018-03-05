@@ -1,8 +1,30 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'org.jetbrains.dokka'
-apply plugin: 'com.github.dcendents.android-maven'
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = libName
+
+    publishedGroupId = libGroupId
+    libraryName = libName
+    artifact = libArtifactId
+
+    libraryDescription = libDescription
+
+    siteUrl = libUrl
+    gitUrl = libGit
+
+    libraryVersion = projectVersionName
+
+    developerId = 'sanf0rd'
+    developerName = 'David Sanford'
+    developerEmail = 'dsanfordseu@gmail.com'
+
+    licenseName = 'MIT'
+    licenseUrl = 'https://opensource.org/licenses/MIT'
+    allLicenses = ["MIT"]
+}
 
 android {
     compileSdkVersion 27
@@ -48,53 +70,5 @@ repositories {
     mavenCentral()
 }
 
-// for Bintray
-def projectVersionCodeNr = Integer.parseInt(projectVersionCode)
-def libGit = libGit
-def libUrl = libUrl
-def libDescription = libDescription
-def libGroupId = libGroupId
-def libArtifactId = libArtifactId
-
-// for Maven
-group = libGroupId
-version = projectVersionName
-
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            name libArtifactId
-            description libDescription
-            url libUrl
-            inceptionYear '2018'
-
-            packaging 'aar'
-            groupId libGroupId
-            artifactId libArtifactId
-            version projectVersionName
-
-            licenses {
-                license {
-                    name 'MIT'
-                    url libLicenseUrl
-                }
-            }
-        }
-    }
-}
-
-bintray {
-    user = bintray_user
-    key = bintray_apikey
-    pkg {
-        repo = libGroupId
-        name = libArtifactId
-        licenses = ['MIT']
-        vcsUrl = libGit
-        version {
-            name = projectVersionName
-
-        }
-    }
-    configurations = ['archives']
-}
+apply from: 'installv1.gradle'
+apply from: 'bintrayv1.gradle'
