@@ -55,6 +55,14 @@ user.update { print("updated user um Firestore") }
 user.destroy { print("this user was deleted on Firestore") }
 ```
 
+## Features
+
+- [x] Basic CRUD functionality with Firestore
+- [ ] Map queries from firestore
+- [ ] Manage image/file properties (send/retrieve from Storage)
+- [ ] Add realtime capabilities
+- [ ] Add offline capabilities
+
 ## Requirements
 
 [Add Firebase to your project](https://firebase.google.com/docs/android/setup)
