@@ -1,6 +1,7 @@
 package com.sanf0rd.firerecord
 
 import com.google.firebase.firestore.FirebaseFirestore
+import com.sanf0rd.firerecord.extension.reference
 
 
 /**
@@ -14,40 +15,40 @@ open class FireRecord {
 
     var id: String? = null
 
-    fun save(result: () -> Unit) {
+    fun save(result: (FireRecordResponse<Unit>) -> Unit) {
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}").add(this)
                 .addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 this.id = task.result.id
-                result()
+                result(Sucess(Unit.reference))
             }else {
-                //Todo: Return an Error
+                result(Failure())
             }
         }
     }
 
-    fun update(result: () -> Unit) {
-        val id = id ?: return Unit //Todo: return an Error
+    fun update(result: (FireRecordResponse<Unit>) -> Unit) {
+        val id = id ?: return //Todo: return an Error
 
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
                 .document(id).set(this).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                result()
+                result(Sucess(Unit.reference))
             } else {
-                //Todo: Return an error
+                result(Failure())
             }
         }
     }
 
-    fun destroy(result: () -> Unit) {
-        val id = id ?: return Unit //Todo: return an Error
+    fun destroy(result: (FireRecordResponse<Unit>) -> Unit) {
+        val id = id ?: return //Todo: return an Error
 
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
                 .document(id).delete().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                result()
+                result(Sucess(Unit.reference))
             } else {
-                //Todo: Return an error
+                result(Failure())
             }
         }
     }

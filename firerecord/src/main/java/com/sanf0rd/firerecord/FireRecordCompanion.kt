@@ -5,20 +5,20 @@ package com.sanf0rd.firerecord
  */
 open class FireRecordCompanion<T: FireRecord>
 
-inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.load(id: String, crossinline result: (U) -> Unit) {
+inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.load(id: String, crossinline result: (FireRecordResponse<U>) -> Unit) {
     firestore.collection("/${U::class.java.simpleName.toLowerCase()}").document(id).get()
             .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+                if (task.isSuccessful && task.result.exists()) {
                     val mappedObject = task.result.toObject(U::class.java)
                     mappedObject.id = id
-                    result(mappedObject)
+                    result(Sucess(mappedObject))
                 }else {
-                    //Todo: Return an Error
+                    result(Failure())
                 }
             }
 }
 
-inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline result: (List<U>) -> Unit) {
+inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline result: (FireRecordResponse<List<U>>) -> Unit) {
     firestore.collection("/${U::class.java.simpleName.toLowerCase()}").get()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -30,20 +30,21 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline 
                         return@map mappedObject
                     }
 
-                    result(mappedList)
+                    result(Sucess(mappedList))
                 } else {
-                    //Todo: Return an Error
+                    result(Failure())
                 }
             }
 }
 
-inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.destroy(id: String, crossinline result: () -> Unit) {
+inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.destroy(id: String, crossinline result: (FireRecordResponse<Unit>) -> Unit) {
     firestore.collection("/${U::class.java.simpleName.toLowerCase()}").document(id).delete()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    result()
+                    val unitRef = {}()
+                    result(Sucess(unitRef))
                 } else {
-                    //Todo: Return an Error
+                    result(Failure())
                 }
             }
 }
