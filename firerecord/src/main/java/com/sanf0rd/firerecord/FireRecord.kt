@@ -28,7 +28,7 @@ open class FireRecord {
     }
 
     fun update(result: (FireRecordResponse<Unit>) -> Unit) {
-        val id = id ?: return //Todo: return an Error
+        val id = id ?: throw IllegalStateException("Id cannot be null")
 
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
                 .document(id).set(this).addOnCompleteListener { task ->
@@ -41,7 +41,7 @@ open class FireRecord {
     }
 
     fun destroy(result: (FireRecordResponse<Unit>) -> Unit) {
-        val id = id ?: return //Todo: return an Error
+        val id = id ?: throw IllegalStateException("Id cannot be null")
 
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
                 .document(id).delete().addOnCompleteListener { task ->
