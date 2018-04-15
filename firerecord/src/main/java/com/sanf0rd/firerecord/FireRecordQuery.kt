@@ -16,3 +16,7 @@ class FireRecordComparisonQuery<R: FireRecord>(val prop: KMutableProperty1<R ,ou
 infix fun <T: FireRecord> KMutableProperty1<T, out Int?>.equalTo(value: Int): FireRecordComparisonQuery<T> {
     return FireRecordComparisonQuery(this, value, QueryType.EqualTo)
 }
+
+fun <T: FireRecordCompanion<R>, R: FireRecord> T.where(query: FireRecordComparisonQuery<R>) {
+    print(query.value)
+}
