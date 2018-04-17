@@ -2,21 +2,13 @@ package com.sanf0rd.firerecord
 
 import kotlin.reflect.KMutableProperty1
 
-enum class QueryType {
-    EqualTo,
-    GreaterThan,
-    GreaterThanOrEqualTo,
-    LessThanOrEqualTo,
-    LessThan
-}
-
-class FireRecordComparisonQuery<R: FireRecord>(val prop: KMutableProperty1<R ,out Int?>,
-                                               val value: Int, val type: QueryType)
-
-infix fun <T: FireRecord> KMutableProperty1<T, out Int?>.equalTo(value: Int): FireRecordComparisonQuery<T> {
-    return FireRecordComparisonQuery(this, value, QueryType.EqualTo)
-}
-
-fun <T: FireRecordCompanion<R>, R: FireRecord> T.where(query: FireRecordComparisonQuery<R>) {
+fun <T: FireRecordCompanion<R>, R: FireRecord> T.where(query: FireRecordComparisonQuery<R>): FireRecordQuery<R> {
     print(query.value)
+    return FireRecordQuery()
+}
+
+class FireRecordQuery<T: FireRecord> {
+    fun where(query: FireRecordComparisonQuery<T>): FireRecordQuery<T> {
+        return FireRecordQuery()
+    }
 }
