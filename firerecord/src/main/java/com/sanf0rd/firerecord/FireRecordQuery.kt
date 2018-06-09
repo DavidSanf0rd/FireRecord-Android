@@ -29,7 +29,7 @@ class FireRecordQuery<T: FireRecord>(private val kClass: KClass<T>) {
     }
 
     fun take() {
-
+        evaluate()
     }
 
     fun takeAll() {
