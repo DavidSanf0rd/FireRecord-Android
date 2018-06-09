@@ -5,8 +5,8 @@ import com.google.firebase.firestore.Query
 import com.sanf0rd.firerecord.QueryType.*
 import kotlin.reflect.KMutableProperty1
 
-class FireRecordComparisonQuery<R : FireRecord>(val prop: KMutableProperty1<R, out Int?>,
-                                                val value: Int, val type: QueryType) {
+class FireRecordComparisonQuery<R : FireRecord>(val prop: KMutableProperty1<R, *>,
+                                                val value: Any, val type: QueryType) {
 
     fun buildFirestoreQuery(currentQuery: Query) = when (type) {
         EqualTo -> currentQuery.whereEqualTo(prop.name, value)
@@ -25,6 +25,22 @@ class FireRecordComparisonQuery<R : FireRecord>(val prop: KMutableProperty1<R, o
     }
 }
 
-infix fun <T : FireRecord> KMutableProperty1<T, out Int?>.equalTo(value: Int): FireRecordComparisonQuery<T> {
+infix fun <T : FireRecord> KMutableProperty1<T, *>.equalTo(value: Any): FireRecordComparisonQuery<T> {
     return FireRecordComparisonQuery(this, value, EqualTo)
 }
+
+infix fun <T : FireRecord> KMutableProperty1<T, *>.greaterThan(value: Int): FireRecordComparisonQuery<T> {
+    return FireRecordComparisonQuery(this, value, GreaterThan)
+}
+
+infix fun <T : FireRecord> KMutableProperty1<T, *>.greaterThanOrEqualTo(value: Int): FireRecordComparisonQuery<T> {
+    return FireRecordComparisonQuery(this, value, GreaterThanOrEqualTo)
+}
+
+infix fun <T : FireRecord> KMutableProperty1<T, out Int?>.lessThan(value: Int): FireRecordComparisonQuery<T> {
+    return FireRecordComparisonQuery(this, value, LessThan)
+}
+
+
+
+
