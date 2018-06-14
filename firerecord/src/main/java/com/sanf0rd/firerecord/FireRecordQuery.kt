@@ -2,7 +2,7 @@ package com.sanf0rd.firerecord
 
 import kotlin.reflect.KClass
 
-inline fun <T: FireRecordCompanion<R>,reified R: FireRecord> T.where(query: FireRecordComparisonQuery<R>): FireRecordQuery<R> {
+inline fun <T: FireRecordCompanion<R>, reified R: FireRecord> T.where(query: FireRecordComparisonQuery<R>): FireRecordQuery<R> {
     print(query.value)
     return FireRecordQuery(R::class).where(query)
 }
@@ -15,7 +15,7 @@ class FireRecordQuery<T: FireRecord>(private val kClass: KClass<T>) {
         return this
     }
 
-    private fun evaluate() {
+    private fun evaluate(result: (FireRecordResponse<List<T>>) -> Unit) {
         val collectionRef = firestore.collection("/${kClass.java.simpleName.toLowerCase()}")
         var firestoreQuery = queryList.first().buildFirstQuery(collectionRef)
 
@@ -23,14 +23,24 @@ class FireRecordQuery<T: FireRecord>(private val kClass: KClass<T>) {
             currentQuery, fireRecordQuery -> fireRecordQuery.buildFirestoreQuery(currentQuery)
         }
 
-        firestoreQuery.get().addOnCompleteListener {
-            print(it)
+        firestoreQuery.get().addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val documents = task.result.documents
+
+                val mappedList = documents.map {
+                    val mappedObject = it.toObject(kClass.java)
+                    mappedObject.id = it.id
+                    return@map mappedObject
+                }
+
+                result(Sucess(mappedList))
+            } else {
+                result(Failure())
+            }
         }
     }
 
-    fun take() {
-        evaluate()
-    }
+    fun take(result: (FireRecordResponse<List<T>>) -> Unit) = evaluate(result)
 
     fun takeAll() {
 
