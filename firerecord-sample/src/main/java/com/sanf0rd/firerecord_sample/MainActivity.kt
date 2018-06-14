@@ -3,11 +3,13 @@ package com.sanf0rd.firerecord_sample
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.firestore.ServerTimestamp
 import com.sanf0rd.firerecord.*
+import com.sanf0rd.firerecord.query.comparison.equalTo
+import com.sanf0rd.firerecord.query.comparison.greaterThan
+import com.sanf0rd.firerecord.query.comparison.lessThan
 
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -33,9 +35,44 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 
-        Employee.destroy("9qWVZ4Ar1dKnikGs5aAY") {
-            Log.d("result", "deleted")
-        }
+        val employee = Employee()
+        employee.salary = 2700
+
+//        firestore.collection("employee").whereEqualTo("name", "Sanford").limit(1).limit(10)
+//                .get().addOnCompleteListener { task ->
+//                    print(task)
+//                }
+
+
+//        Employee.destroy("teste") { response ->
+//            when(response) {
+//                is Sucess -> response.result
+//                is Failure -> TODO()
+//            }
+//        }
+
+        Employee.where(Employee::age greaterThan 20).where(Employee::age lessThan 30).take { response ->
+                    when(response) {
+                        is Sucess -> response.result
+                        is Failure -> TODO()
+                    }
+                }
+
+
+
+//        val user = User()
+//        user.name = "Jhon"
+//        user.age = 19
+//
+//        user.destroy { print("this user was deleted on Firestore") }
+//
+//        user.update {
+//            print("updated user um Firestore")
+//        }
+//
+//        Employee.destroy("9qWVZ4Ar1dKnikGs5aAY") {
+//            Log.d("result", "deleted")
+//        }
 
 //        val employee = Employee()
 //        employee.salary = 2700
