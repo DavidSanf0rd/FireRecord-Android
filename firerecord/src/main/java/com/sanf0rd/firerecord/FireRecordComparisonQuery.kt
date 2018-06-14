@@ -25,21 +25,6 @@ class FireRecordComparisonQuery<R : FireRecord>(val prop: KMutableProperty1<R, *
     }
 }
 
-infix fun <T : FireRecord> KMutableProperty1<T, *>.equalTo(value: Any): FireRecordComparisonQuery<T> {
-    return FireRecordComparisonQuery(this, value, EqualTo)
-}
-
-infix fun <T : FireRecord> KMutableProperty1<T, *>.greaterThan(value: Int): FireRecordComparisonQuery<T> {
-    return FireRecordComparisonQuery(this, value, GreaterThan)
-}
-
-infix fun <T : FireRecord> KMutableProperty1<T, *>.greaterThanOrEqualTo(value: Int): FireRecordComparisonQuery<T> {
-    return FireRecordComparisonQuery(this, value, GreaterThanOrEqualTo)
-}
-
-infix fun <T : FireRecord> KMutableProperty1<T, out Int?>.lessThan(value: Int): FireRecordComparisonQuery<T> {
-    return FireRecordComparisonQuery(this, value, LessThan)
-}
 
 
 
