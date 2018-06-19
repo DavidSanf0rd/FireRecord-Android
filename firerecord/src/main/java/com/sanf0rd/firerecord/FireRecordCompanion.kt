@@ -11,7 +11,7 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.load(id: String,
                 if (task.isSuccessful && task.result.exists()) {
                     val mappedObject = task.result.toObject(U::class.java)
                     mappedObject.id = id
-                    result(Sucess(mappedObject))
+                    result(Success(mappedObject))
                 }else {
                     result(Failure())
                 }
@@ -30,7 +30,7 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline 
                         return@map mappedObject
                     }
 
-                    result(Sucess(mappedList))
+                    result(Success(mappedList))
                 } else {
                     result(Failure())
                 }
@@ -42,7 +42,7 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.destroy(id: Stri
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val unitRef = {}()
-                    result(Sucess(unitRef))
+                    result(Success(unitRef))
                 } else {
                     result(Failure())
                 }

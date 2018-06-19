@@ -33,7 +33,7 @@ class FireRecordQuery<T: FireRecord>(private val kClass: KClass<T>) {
                     return@map mappedObject
                 }
 
-                result(Sucess(mappedList))
+                result(Success(mappedList))
             } else {
                 result(Failure())
             }

@@ -20,7 +20,7 @@ open class FireRecord {
                 .addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 this.id = task.result.id
-                result(Sucess(Unit.reference))
+                result(Success(Unit.reference))
             }else {
                 result(Failure())
             }
@@ -33,7 +33,7 @@ open class FireRecord {
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
                 .document(id).set(this).addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                result(Sucess(Unit.reference))
+                result(Success(Unit.reference))
             } else {
                 result(Failure())
             }
@@ -46,7 +46,7 @@ open class FireRecord {
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}")
                 .document(id).delete().addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                result(Sucess(Unit.reference))
+                result(Success(Unit.reference))
             } else {
                 result(Failure())
             }
