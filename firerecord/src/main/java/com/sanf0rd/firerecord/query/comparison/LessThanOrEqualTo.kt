@@ -2,7 +2,6 @@ package com.sanf0rd.firerecord.query.comparison
 
 import com.sanf0rd.firerecord.FireRecord
 import com.sanf0rd.firerecord.FireRecordComparisonQuery
-import com.sanf0rd.firerecord.QueryType
 import java.util.*
 import kotlin.reflect.KMutableProperty1
 

@@ -2,7 +2,8 @@ package com.sanf0rd.firerecord
 
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.Query
-import com.sanf0rd.firerecord.QueryType.*
+import com.sanf0rd.firerecord.query.comparison.QueryType
+import com.sanf0rd.firerecord.query.comparison.QueryType.*
 import kotlin.reflect.KMutableProperty1
 
 class FireRecordComparisonQuery<R : FireRecord>(val prop: KMutableProperty1<R, *>,
