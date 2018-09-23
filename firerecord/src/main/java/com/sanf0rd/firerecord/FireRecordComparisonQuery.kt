@@ -28,5 +28,3 @@ class FireRecordComparisonQuery<R : FireRecord>(val prop: KMutableProperty1<R, *
 
 
 
-
-
