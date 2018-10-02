@@ -2,6 +2,7 @@ package com.sanf0rd.firerecord
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sanf0rd.firerecord.extension.reference
+import com.sanf0rd.firerecord.storage.FireRecordStorage
 
 
 /**
@@ -16,6 +17,9 @@ open class FireRecord {
     var id: String? = null
 
     fun save(result: (FireRecordResponse<Unit>) -> Unit) {
+
+        FireRecordStorage.checkForFiles(this)
+
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}").add(this)
                 .addOnCompleteListener { task ->
             if (task.isSuccessful) {
