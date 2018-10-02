@@ -10,6 +10,7 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.load(id: String,
             .addOnCompleteListener { task ->
                 if (task.isSuccessful && task.result.exists()) {
                     val mappedObject = task.result.toObject(U::class.java)
+                            ?: throw IllegalStateException("mapped object cannot be null")
                     mappedObject.id = id
                     result(Success(mappedObject))
                 }else {
@@ -26,6 +27,7 @@ inline fun <reified U: FireRecord, T: FireRecordCompanion<U>> T.all(crossinline 
 
                     val mappedList = documents.map {
                         val mappedObject = it.toObject(U::class.java)
+                                ?: throw IllegalStateException("mapped object cannot be null")
                         mappedObject.id = it.id
                         return@map mappedObject
                     }

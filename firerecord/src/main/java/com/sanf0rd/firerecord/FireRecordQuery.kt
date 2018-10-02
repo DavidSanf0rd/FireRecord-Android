@@ -27,10 +27,10 @@ class FireRecordQuery<T: FireRecord>(private val kClass: KClass<T>) {
             if (task.isSuccessful) {
                 val documents = task.result.documents
 
-                val mappedList = documents.map {
-                    val mappedObject = it.toObject(kClass.java)
+                val mappedList = documents.mapNotNull {
+                    val mappedObject = it.toObject(kClass.java) ?: return@mapNotNull null
                     mappedObject.id = it.id
-                    return@map mappedObject
+                    return@mapNotNull mappedObject
                 }
 
                 result(Success(mappedList))
