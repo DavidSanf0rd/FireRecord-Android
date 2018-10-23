@@ -12,7 +12,7 @@ jobs:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
       - run:
           name: Create Ci Files
-          command: touch local.properties
+          command: touch local.properties && source environmentSetup.sh && copyEnvVarsToGradleProperties
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
@@ -28,23 +28,3 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-  prepare:
-      working_directory: ~/code
-      docker:
-            - image: circleci/android:api-25-alpha
-      steps:
-        - checkout
-        - restore_cache:
-            key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-        - run:
-            name: Create gradle.properties
-            command: source environmentSetup.sh && copyEnvVarsToGradleProperties
-
-workflows:
-  version: 2
-  build-deploy:
-    jobs:
-      - prepare
-      - build:
-          requires:
-            - prepare
