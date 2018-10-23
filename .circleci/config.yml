@@ -30,6 +30,8 @@ jobs:
           path: app/build/test-results
   prepare:
       working_directory: ~/code
+      docker:
+            - image: circleci/android:api-25-alpha
       steps:
         - run:
             name: Create gradle.properties
