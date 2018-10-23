@@ -30,6 +30,5 @@ function copyEnvVarsToGradleProperties {
         echo "bintray_user=$BINTRAY_USER" >> $GRADLE_PROPERTIES
         echo "bintray_apikey=$BINTRAY_APIKEY" >> $GRADLE_PROPERTIES
         echo "bintray_gpg_pass=$BINTRAY_GPG_PASS" >> $GRADLE_PROPERTIES
-
     fi
 }

@@ -28,3 +28,18 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
+  prepare:
+      working_directory: ~/code
+      steps:
+        - run:
+            name: Create gradle.properties
+            command: source environmentSetup.sh && copyEnvVarsToGradleProperties
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - prepare
+      - build:
+          requires:
+            - prepare
