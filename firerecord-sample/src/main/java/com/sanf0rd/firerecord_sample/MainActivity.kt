@@ -7,9 +7,9 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.firebase.firestore.ServerTimestamp
 import com.sanf0rd.firerecord.*
-import com.sanf0rd.firerecord.query.comparison.equalTo
 import com.sanf0rd.firerecord.query.comparison.greaterThan
 import com.sanf0rd.firerecord.query.comparison.lessThan
+import com.sanf0rd.firerecord.storage.FirebaseImage
 
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -36,7 +36,9 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         val employee = Employee()
-        employee.salary = 2700
+        employee.salary = 4500
+
+        employee.save {}
 
 //        firestore.collection("employee").whereEqualTo("name", "Sanford").limit(1).limit(10)
 //                .get().addOnCompleteListener { task ->
@@ -46,14 +48,14 @@ class MainActivity : AppCompatActivity() {
 
 //        Employee.destroy("teste") { response ->
 //            when(response) {
-//                is Sucess -> response.result
+//                is Success -> response.result
 //                is Failure -> TODO()
 //            }
 //        }
 
         Employee.where(Employee::age greaterThan 20).where(Employee::age lessThan 30).take { response ->
                     when(response) {
-                        is Sucess -> response.result
+                        is Success -> response.result
                         is Failure -> TODO()
                     }
                 }
@@ -119,4 +121,5 @@ class Employee: User() {
     companion object: FireRecordCompanion<Employee>()
 
     var salary: Int? = null
+    var image: FirebaseImage? = null
 }
