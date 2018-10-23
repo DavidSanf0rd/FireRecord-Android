@@ -33,6 +33,9 @@ jobs:
       docker:
             - image: circleci/android:api-25-alpha
       steps:
+        - checkout
+        - restore_cache:
+            key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
         - run:
             name: Create gradle.properties
             command: source environmentSetup.sh && copyEnvVarsToGradleProperties
