@@ -27,7 +27,6 @@ function copyEnvVarsToGradleProperties {
         echo "Creating Gradle Properties file..."
         touch $GRADLE_PROPERTIES
 
-        echo "Writing TEST_API_KEY to gradle.properties..."
         echo "bintray_user=$BINTRAY_USER" >> $GRADLE_PROPERTIES
         echo "bintray_apikey=$BINTRAY_APIKEY" >> $GRADLE_PROPERTIES
         echo "bintray_gpg_pass=$BINTRAY_GPG_PASS" >> $GRADLE_PROPERTIES
