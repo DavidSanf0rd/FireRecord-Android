@@ -12,7 +12,7 @@ class FireRecordStorage {
         fun checkForFiles(instance: FireRecord) {
             val instanceClass = instance::class.java
             instanceClass.declaredFields.forEach { field ->
-                if (field.type.isAssignableFrom(FirebaseImage::class.java)) {
+                if (field.type.superclass.isAssignableFrom(FirebaseFile::class.java)) {
                     println(field)
                 }
             }
