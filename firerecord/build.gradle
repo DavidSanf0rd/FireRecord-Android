@@ -27,11 +27,11 @@ ext {
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 28
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -62,8 +62,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     compileOnly "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    compileOnly 'com.google.firebase:firebase-firestore:17.1.0'
-    compileOnly 'com.google.firebase:firebase-storage:16.0.2'
+    compileOnly 'com.google.firebase:firebase-firestore:21.1.1'
+    compileOnly 'com.google.firebase:firebase-storage:19.0.1'
 }
 
 repositories {
