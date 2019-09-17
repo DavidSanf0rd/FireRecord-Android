@@ -1,11 +1,7 @@
 package com.sanf0rd.firerecord.storage
 
-import android.graphics.Bitmap
-import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.UploadTask
 import com.sanf0rd.firerecord.FireRecord
-import java.io.ByteArrayOutputStream
 
 val firebaseStorage = FirebaseStorage.getInstance()
 
@@ -18,7 +14,8 @@ class FireRecordStorage {
             instanceClass.declaredFields.forEach { field ->
                 if (field.type.superclass.isAssignableFrom(FirebaseFile::class.java)) {
                     println(field)
-                    sendImageToFirebase(field.get(instance))
+                    //Todo: Fix error getting image from instance.
+                    //sendImageToFirebase(field.get(instance) as FirebaseFile)
                 }
             }
         }

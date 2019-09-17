@@ -23,7 +23,7 @@ open class FireRecord {
         firestore.collection("/${this::class.java.simpleName.toLowerCase()}").add(this)
                 .addOnCompleteListener { task ->
             if (task.isSuccessful) {
-                this.id = task.result.id
+                this.id = task.result?.id
                 result(Success(Unit.reference))
             }else {
                 result(Failure())

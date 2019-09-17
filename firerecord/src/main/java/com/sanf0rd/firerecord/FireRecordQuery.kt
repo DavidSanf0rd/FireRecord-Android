@@ -24,8 +24,10 @@ class FireRecordQuery<T: FireRecord>(private val kClass: KClass<T>) {
         }
 
         firestoreQuery.get().addOnCompleteListener { task ->
+
             if (task.isSuccessful) {
-                val documents = task.result.documents
+                val result = requireNotNull(task.result) { "Result cannot be null" }
+                val documents = result.documents
 
                 val mappedList = documents.mapNotNull {
                     val mappedObject = it.toObject(kClass.java) ?: return@mapNotNull null
